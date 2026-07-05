@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeVision AI - Programming Language Detector</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body>
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <div class="grid-bg"></div>
+
+  <main class="app-shell">
+    <header class="hero glass-card">
+      <div class="badge">Computer Vision + OCR + Secure Groq API</div>
+      <h1>CodeVision <span>AI</span></h1>
+      <p>Kod ekran görüntüsünü yükle; uygulama OCR ile kodu tarar, server üzerinden Groq API ile yazılım dilini tahmin eder.</p>
+    </header>
+
+    <section class="workspace">
+      <div class="panel glass-card upload-panel">
+        <div id="dropZone" class="drop-zone">
+          <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+          <div class="upload-icon">⌁</div>
+          <h2>Dosya yükle veya sürükle</h2>
+          <p>Python, JavaScript, Java, C++, C#, Go, Rust ve HTML/CSS kod screenshotlarını destekler.</p>
+          <button id="pickFileBtn" class="primary-btn">Görsel Seç</button>
+        </div>
+
+        <div class="preview-wrap">
+          <img id="previewImage" alt="Yüklenen kod ekran görüntüsü" />
+          <div id="emptyPreview" class="empty-preview">Henüz görsel yok</div>
+        </div>
+      </div>
+
+      <div class="panel glass-card control-panel">
+        <h2>Analiz Paneli</h2>
+
+        <div class="secure-box">
+          <div class="secure-icon">🔒</div>
+          <div>
+            <strong>Public kullanım güvenli</strong>
+            <p>API key artık tarayıcıda değil. Server tarafındaki <code>.env</code> dosyasında saklanır.</p>
+          </div>
+        </div>
+
+        <button id="analyzeBtn" class="analyze-btn" disabled>
+          <span>Analiz Et</span>
+          <small>OCR + Groq</small>
+        </button>
+
+        <div id="statusBox" class="status-box">Başlamak için kod ekran görüntüsü yükle.</div>
+
+        <div class="mini-note">
+          Yayınlamak için Render, Railway veya Vercel Node server kullan. Sadece statik hosting olmaz; çünkü API key backend’de kalmalı.
+        </div>
+      </div>
+    </section>
+
+    <section class="results glass-card">
+      <div class="result-header">
+        <h2>Sonuç</h2>
+        <div id="confidencePill" class="confidence-pill">%0</div>
+      </div>
+
+      <div class="language-card">
+        <div class="language-label">Tahmin Edilen Dil</div>
+        <div id="languageResult" class="language-result">Bekleniyor...</div>
+        <div class="bar-track"><div id="confidenceBar" class="bar-fill"></div></div>
+      </div>
+
+      <div class="details-grid">
+        <div class="detail-box">
+          <h3>Groq Açıklaması</h3>
+          <p id="aiExplanation">Analiz yapılınca burada açıklama görünecek.</p>
+        </div>
+        <div class="detail-box">
+          <h3>OCR ile Okunan Kod</h3>
+          <pre id="ocrText">Henüz tarama yapılmadı.</pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
